@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import User from '../interfaces/User.interface'
 
 interface SearchState {
+    error: boolean, 
     name: string, 
     numberOfAbilities: number, 
     baseExperience: number, 
@@ -13,6 +14,7 @@ export class PokemonSearch extends Component <User, SearchState> {
     constructor(props: User ) {
         super(props);
         this.state = {
+            error: false,
             name: '', 
             numberOfAbilities: 0, 
             baseExperience: 0, 
@@ -22,7 +24,22 @@ export class PokemonSearch extends Component <User, SearchState> {
     }
     onSearchClick = () => {
         const inputValue = this.pokemonRef.current.value; 
-        fetch(`https://pokeapi.co/api/v2/pokemon/`)
+        fetch(`https://pokeapi.co/api/v2/pokemon/${inputValue}`)
+        .then(res => {
+            if(res.status !== 200) {
+                this.setState ({ error: true })
+                return;
+            }
+            res.json().then(data => {
+                this.setState({ 
+                    error: false, 
+                    name: data.name, 
+                    numberOfAbilities: data.abilities.length,
+                    baseExperience: data.base_experience, 
+                    imageUrl: data.sprites.font_default
+                })
+            })
+        })
 
     }
     render() {
