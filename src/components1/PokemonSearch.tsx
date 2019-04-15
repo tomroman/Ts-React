@@ -71,7 +71,7 @@ export class PokemonSearch extends Component <User, SearchState> {
         return (
             <div>
                 <p>
-                    User {userName} {' '}
+                    Search Pokedex {userName} {' '}
                     {numberOfPokemons && <span> has {numberOfPokemons} pokemons</span>}
                 </p>
                 <input type = "text" ref={this.pokemonRef}/>

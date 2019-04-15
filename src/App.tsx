@@ -7,7 +7,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <PokemonSearch name="John Doe" />
+        <PokemonSearch name="" />
       </div>
     );
   }
